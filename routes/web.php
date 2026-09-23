@@ -55,6 +55,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::resource('services', Admin\ServiceController::class)->except('show');
 
+        Route::resource('leadership', Admin\LeaderController::class)->except('show');
+
         Route::resource('jobs', Admin\JobOpeningController::class)->except('show');
         Route::patch('jobs/{job}/close', [Admin\JobOpeningController::class, 'close'])->name('jobs.close');
         Route::patch('jobs/{job}/reopen', [Admin\JobOpeningController::class, 'reopen'])->name('jobs.reopen');

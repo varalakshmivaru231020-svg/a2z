@@ -87,11 +87,11 @@ class PublicPagesTest extends TestCase
         $this->service(['slug' => 'plain', 'title' => 'Plain']);
 
         $this->get('/services/custom')
-            ->assertSee('<title>My Custom Title | A2Z Global Maintenance</title>', false)
+            ->assertSee('<title>My Custom Title | AKS Global Maintenance</title>', false)
             ->assertSee('content="A hand written description for search engines."', false);
 
         $this->get('/services/plain')
-            ->assertSee('<title>Plain in Bangalore | A2Z Global Maintenance</title>', false)
+            ->assertSee('<title>Plain in Bangalore | AKS Global Maintenance</title>', false)
             ->assertSee('content="Prompt plumbing repairs and installations."', false);
     }
 
@@ -100,7 +100,7 @@ class PublicPagesTest extends TestCase
         SeoPage::create(['page_key' => 'about', 'meta_title' => 'Custom About Title', 'meta_description' => 'Custom about description that is long enough.']);
 
         $this->get('/about')
-            ->assertSee('<title>Custom About Title | A2Z Global Maintenance</title>', false)
+            ->assertSee('<title>Custom About Title | AKS Global Maintenance</title>', false)
             ->assertSee('content="Custom about description that is long enough."', false);
 
         // Untouched pages keep the config defaults.
@@ -140,7 +140,7 @@ class PublicPagesTest extends TestCase
         }
         $this->assertSame(2, substr_count($html, 'class="marquee__group"'), 'the readable list + its copy');
         $this->assertSame(1, substr_count($html, 'class="marquee__group" aria-hidden="true"'), 'only the copy is hidden from screen readers');
-        $this->assertStringContainsString('Building trust through reliable service', $html);
+        $this->assertStringNotContainsString('Building trust through reliable service', $html, 'caption removed');
         $this->assertStringNotContainsString('client-logo', $html, 'text only: no logo tiles or monograms');
 
         // The strip comes before the "What we do" services section.

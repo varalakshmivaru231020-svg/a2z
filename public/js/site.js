@@ -1,4 +1,4 @@
-/* A2Z Global Maintenance — public site behaviour (no dependencies) */
+/* AKS Global Maintenance — public site behaviour (no dependencies) */
 (function () {
     'use strict';
 

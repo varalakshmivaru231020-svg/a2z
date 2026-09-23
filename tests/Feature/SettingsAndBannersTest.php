@@ -77,7 +77,7 @@ class SettingsAndBannersTest extends TestCase
             ->assertSee('Head Office')->assertSee('12 MG Road, Bangalore, Karnataka 560001')
             ->assertSee('Kochi Office')
             ->assertDontSee('+91 87146 34801')
-            ->assertDontSee('Registered Office');
+            ->assertDontSee('Corporate Office');
         $this->assertSame(2, substr_count($contact->getContent(), 'data-office '), 'only the two saved offices');
 
         $home = $this->get('/')->assertOk();

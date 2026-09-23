@@ -20,9 +20,10 @@
             </div>
 
             <div class="hero__media">
-                <img src="{{ asset('img/office.jpg') }}" alt="Bright, tidy open-plan office maintained by A2Z Global Maintenance facility services" width="991" height="551" fetchpriority="high">
+                <img src="{{ asset('img/office.jpg') }}" alt="Bright, tidy open-plan office maintained by AKS Global Maintenance facility services" width="991" height="551" fetchpriority="high">
                 <div class="hero__badge">
-                    <img src="{{ \App\Support\Assets::url('img/logo-mark.png') }}" alt="" width="60" height="50">
+                    @php($badgeLogo = \App\Support\SiteSettings::logo('header'))
+                    <img src="{{ $badgeLogo['url'] }}" alt="" width="{{ $badgeLogo['width'] }}" height="{{ $badgeLogo['height'] }}">
                     <div>
                         <strong>Since {{ config('site.founded') }}</strong>
                         <span>Customer care you can count on</span>
@@ -33,7 +34,7 @@
     </section>
 
     {{-- Numbers --}}
-    <section class="stats" aria-label="A2Z Global Maintenance at a glance">
+    <section class="stats" aria-label="AKS Global Maintenance at a glance">
         <div class="container stats__grid">
             <div class="stat"><strong>{{ config('site.founded') }}</strong><span>Established</span></div>
             <div class="stat"><strong>{{ count(config('site.offices')) }}</strong><span>Offices in Bangalore &amp; Kochi</span></div>
@@ -48,9 +49,6 @@
             <x-section-head eyebrow="Our clients" title="Trusted by organisations across Bangalore" />
         </div>
         @include('partials.clients')
-        <div class="container">
-            <p class="clients-caption">Building trust through reliable service</p>
-        </div>
     </section>
 
     {{-- Service highlights --}}
@@ -102,7 +100,7 @@
                 <img src="{{ asset('img/crew.jpg') }}" alt="Illustration of a facility team planning a project around a table" width="599" height="681" loading="lazy">
             </div>
             <div class="split__copy">
-                <p class="eyebrow">Why A2Z Global Maintenance</p>
+                <p class="eyebrow">Why AKS Global Maintenance</p>
                 <h2>A customer-care company that stays with you</h2>
                 <p>Established in {{ config('site.founded') }}, we provide for the requirements of establishments in and around Bangalore. Our best practice covers the complete requirement of the customer — and we sincerely believe that customer satisfaction is what brings you back again.</p>
                 <ul class="feature-list">

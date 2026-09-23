@@ -60,7 +60,7 @@ class DemoContentSeeder extends Seeder
                 'phone' => '+91 90000 0' . rand(1000, 9999),
                 'current_location' => 'Horamavu, Bangalore',
                 'experience' => $experience,
-                'cover_note' => 'I have supervised housekeeping teams in commercial buildings and would like to join A2Z Global Maintenance.',
+                'cover_note' => 'I have supervised housekeeping teams in commercial buildings and would like to join AKS Global Maintenance.',
                 'resume_path' => $path,
                 'resume_name' => Str::slug($name) . '-resume.pdf',
             ]);

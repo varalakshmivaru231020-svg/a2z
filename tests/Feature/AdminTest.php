@@ -381,7 +381,7 @@ class AdminTest extends TestCase
         $this->assertNull(SeoPage::firstWhere('page_key', 'about')->meta_title);
         $this->assertSame(count(config('seo.pages')), SeoPage::count());
 
-        $this->get('/')->assertSee('<title>Best Facility Team in Bangalore | A2Z Global Maintenance</title>', false);
+        $this->get('/')->assertSee('<title>Best Facility Team in Bangalore | AKS Global Maintenance</title>', false);
         $this->get('/about')->assertSee(config('seo.pages.about.title'));
 
         $this->put('/admin/seo', ['pages' => ['home' => ['meta_title' => str_repeat('x', 71)]]])->assertSessionHasErrors('pages.home.meta_title');

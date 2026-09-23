@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('content')
-    <x-page-hero title="Careers at A2Z Global Maintenance" lead="Join a team that values training, teamwork and opportunity." eyebrow="Recruitment" :seo="$seo" />
+    <x-page-hero title="Careers at AKS Global Maintenance" lead="Join a team that values training, teamwork and opportunity." eyebrow="Recruitment" :seo="$seo" />
 
     <section class="section section--tight">
         <div class="container narrow">

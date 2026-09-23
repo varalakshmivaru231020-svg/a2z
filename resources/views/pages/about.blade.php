@@ -1,7 +1,7 @@
 @extends('layouts.site')
 
 @section('content')
-    <x-page-hero title="About A2Z Global Maintenance" lead="A one-stop facility management and manpower company that cares about your needs." eyebrow="About us" :seo="$seo" />
+    <x-page-hero title="About AKS Global Maintenance" lead="A one-stop facility management and manpower company that cares about your needs." eyebrow="About us" :seo="$seo" />
 
     {{-- Company profile --}}
     <section class="section">
@@ -10,13 +10,13 @@
                 <p class="eyebrow">Our journey</p>
                 <h2>Welcome to one-stop solutions</h2>
                 <p>{{ config('site.name') }} was established in {{ config('site.founded') }} as a customer care company, able to provide for the requirements of establishments in and around Bangalore and nearby areas. Our best practice covers the complete requirement of the customer, and we sincerely believe that customer satisfaction is what makes you come back again.</p>
-                <p>Today we look after facility management, maintenance and renovation, government water and sewerage projects, and financial and field services — from our registered office in Halasuru, our branch in Horamavu, Bangalore, and our branch in Edappally, Kochi.</p>
+                <p>Today we look after facility management, maintenance and renovation, government water and sewerage projects, and financial and field services — from our corporate office on Varthur Road, our branch in Horamavu, Bangalore, and our branch in Edappally, Kochi.</p>
                 @if (filled(config('site.slogan')))
                     <p class="quote">{{ config('site.slogan') }}</p>
                 @endif
             </div>
             <div class="split__media">
-                <img src="{{ asset('img/office.jpg') }}" alt="A bright open-plan office of the kind A2Z Global Maintenance keeps running smoothly" width="991" height="551" loading="lazy">
+                <img src="{{ asset('img/office.jpg') }}" alt="A bright open-plan office of the kind AKS Global Maintenance keeps running smoothly" width="991" height="551" loading="lazy">
             </div>
         </div>
     </section>
@@ -30,7 +30,7 @@
                 <div class="vm-section__grid">
                     <article class="vm-card">
                         <h3>Our vision</h3>
-                        <p>To build a reputation for quality, consistency and security that makes A2Z Global Maintenance the leader of a new style in living — a trusted, comprehensive care house for every establishment we serve.</p>
+                        <p>To build a reputation for quality, consistency and security that makes AKS Global Maintenance the leader of a new style in living — a trusted, comprehensive care house for every establishment we serve.</p>
                     </article>
                     <article class="vm-card">
                         <h3>Our mission</h3>
@@ -50,7 +50,7 @@
         <div class="container narrow">
             <x-section-head eyebrow="Why facility management, why now" title="Growing with Bengaluru" align="left" />
             <p>With the IT and software industry booming in India, more and more MNCs and companies are establishing their units in Bengaluru, often called the Modern Silicon Valley of India. Facility management is one of the largest service industries in the country, and demand is expected to keep growing — giving ample scope for consistent business growth.</p>
-            <p>A2Z Global Maintenance has ambitious plans to take advantage of these emerging needs, and to act with responsibility and conviction as we grow into a comprehensive care house.</p>
+            <p>AKS Global Maintenance has ambitious plans to take advantage of these emerging needs, and to act with responsibility and conviction as we grow into a comprehensive care house.</p>
         </div>
     </section>
 
@@ -73,29 +73,30 @@
     {{-- Leadership --}}
     <section class="section">
         <div class="container">
-            <x-section-head eyebrow="Leadership" title="The people behind A2Z Global Maintenance" />
+            <x-section-head eyebrow="Leadership" title="The people behind AKS Global Maintenance" />
 
-            @php($leaders = collect(config('site.leadership')))
+            @php($leaders = \App\Models\Leader::query()->active()->ordered()->get())
             @php($lead = $leaders->first())
-            <article class="leader">
-                @if (! empty($lead['photo']))
-                    <img src="{{ asset($lead['photo']) }}" alt="{{ $lead['name'] }}, {{ $lead['role'] }} of {{ config('site.name') }}" width="900" height="1020" loading="lazy">
-                @endif
-                <div>
-                    <p class="eyebrow">{{ $lead['role'] }}</p>
-                    <h3>{{ $lead['name'] }}</h3>
-                    <p>{{ $lead['bio'] }}</p>
-                    <p>He is the anchorman and Managing Director of {{ config('site.name') }}, and draws his strength from the overwhelming support of the team.</p>
-                </div>
-            </article>
+            @if ($lead)
+                <article class="leader">
+                    @if ($lead->photoUrl())
+                        <img src="{{ $lead->photoUrl() }}" alt="{{ $lead->name }}, {{ $lead->role }} of {{ config('site.name') }}" width="900" height="1020" loading="lazy">
+                    @endif
+                    <div>
+                        <p class="eyebrow">{{ $lead->role }}</p>
+                        <h3>{{ $lead->name }}</h3>
+                        <p>{{ $lead->bio }}</p>
+                    </div>
+                </article>
+            @endif
 
             <div class="grid grid--3 team">
                 @foreach ($leaders->slice(1) as $member)
                     <article class="card card--pad team__member">
-                        <span class="avatar" aria-hidden="true">{{ Str::of($member['name'])->replaceMatches('/^(Mr|Mrs|Ms|Dr)\.?\s+/', '')->substr(0, 1) }}</span>
-                        <h3>{{ $member['name'] }}</h3>
-                        <p class="team__role">{{ $member['role'] }}</p>
-                        <p>{{ $member['bio'] }}</p>
+                        <span class="avatar" aria-hidden="true">{{ Str::of($member->name)->replaceMatches('/^(Mr|Mrs|Ms|Dr)\.?\s+/', '')->substr(0, 1) }}</span>
+                        <h3>{{ $member->name }}</h3>
+                        <p class="team__role">{{ $member->role }}</p>
+                        <p>{{ $member->bio }}</p>
                     </article>
                 @endforeach
             </div>

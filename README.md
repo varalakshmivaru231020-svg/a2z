@@ -1,6 +1,6 @@
-# A2Z Global Maintenance Facility Management Services — website
+# AKS Global Maintenance Facility Management Services — website
 
-A mobile-responsive Laravel 12 website with an admin panel for **A2Z Global Maintenance Facility Management Services**
+A mobile-responsive Laravel 12 website with an admin panel for **AKS Global Maintenance Facility Management Services**
 (facility management, maintenance, BWSSB projects and field services — Bangalore & Kochi).
 Logo files are in `public/img/`: `logo.png` (full logo, header), `logo-footer.png` (light-on-dark version for the dark footer),
 `logo-mark.png` (emblem only), plus the favicon, app icons and `og-default.jpg` share image. Logo URLs carry a `?v=` version
@@ -11,6 +11,7 @@ Colours follow the logo: royal blue and orange (CSS variables at the top of `pub
 |---|---|
 | **Home** – intro, service highlights, categories, clients, gallery preview, enquiry form | Secure login (throttled, session based) |
 | **About Us** – profile, vision & mission, leadership, clients | Add / edit / delete **services** (photo, features, SEO fields) |
+| | Add / edit / delete **leadership team** (photo, bio, display order) |
 | **Services** – grouped listing + a detail page per service | Post, edit, **close / reopen** and delete **job openings** |
 | **Recruitment** – open jobs + detail page + online application with resume | View **applications**, download **resumes**, set status, notes, export **CSV** |
 | **Gallery** – photo grid with lightbox | Upload (several at once) and manage **gallery** photos |
@@ -46,8 +47,8 @@ php artisan db:seed --class=DemoContentSeeder
 
 | What | Where |
 |---|---|
-| Services, jobs, gallery, SEO of static pages | Admin panel |
-| Phone, email, WhatsApp, the 3 offices, clients, leadership, nav, service categories | `config/site.php` |
+| Services, jobs, gallery, leadership team, SEO of static pages | Admin panel |
+| Phone, email, WhatsApp, the 3 offices, clients, nav, service categories | `config/site.php` |
 | Default SEO title/description for each static page | `config/seo.php` (admin overrides win) |
 | Page layouts / wording | `resources/views/pages`, `services`, `recruitment` |
 | Colours & styling | `public/css/site.css` (variables at the top), `public/css/admin.css` |
@@ -85,14 +86,16 @@ php artisan test        # 51 tests: pages + SEO output, forms, uploads, resume p
 
 ## Before you launch — content still carried over from the earlier brochure
 
-The site was first built from a different company's brochure (Josha Infinity). The **name and logo are now A2Z Global Maintenance**,
-but this content has *not* been replaced yet and must be checked or swapped for A2Z's own details (all in `config/site.php`
+The site was first built from a different company's brochure (Josha Infinity). The **name and logo are now AKS Global Maintenance**,
+but this content has *not* been replaced yet and must be checked or swapped for AKS's own details (all in `config/site.php`
 unless noted):
 
-* **Phone, email, WhatsApp** and the **3 office addresses** (Halasuru + Horamavu, Bangalore; Edappally, Kochi) — including the
-  "Genisis" / "Chttupabukara" spellings copied as printed. The contact email is also the default admin login and mail "from" address (`.env`).
+* **Phone, email and WhatsApp** are still the earlier company's. The corporate office (Varthur Road, Bengaluru) has been updated;
+  the Horamavu (Bangalore) and Edappally (Kochi) branch addresses — including the "Chttupabukara" spelling copied as printed —
+  are still carried over. The contact email is also the default admin login and mail "from" address (`.env`).
 * **Established 2023**, the "7+ yrs leadership experience" stat and the tagline / slogan ("We care your needs", "Have an exciting comfort always…").
-* **Leadership** (names, roles and the Managing Director's photo `public/img/md-prasad-ashok.jpg`) and the **client list**.
-  Clients are just names in `config/site.php`, shown as a scrolling text strip on the Home and About pages.
+* **Leadership** (names, roles, bios and the Founder & CEO's photo) — now editable in **Admin → Leadership**; the brochure names
+  above were seeded as a starting point, so review/replace them there. The **client list** is still just names in `config/site.php`,
+  shown as a scrolling text strip on the Home and About pages.
 * **Vision, mission and all 22 service descriptions are draft copy** — edit services in the admin panel, vision/mission in `resources/views/pages/about.blade.php`.
-* `md-prasad-ashok.jpg`, `office.jpg` and `crew.jpg` in `public/img/` are photos from that brochure; replace with A2Z's own.
+* `md-prasad-ashok.jpg`, `office.jpg` and `crew.jpg` in `public/img/` are photos from that brochure; replace with AKS's own.

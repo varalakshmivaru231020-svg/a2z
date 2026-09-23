@@ -9,12 +9,12 @@
 |
 | REVIEW BEFORE LAUNCH: the phone, email, offices, founding year, clients and
 | leadership below were carried over from the earlier company brochure and
-| have not yet been replaced with A2Z Global Maintenance's own details.
+| have not yet been replaced with AKS Global Maintenance's own details.
 */
 
 return [
-    'name' => 'A2Z Global Maintenance Facility Management Services',
-    'brand' => 'A2Z Global Maintenance',
+    'name' => 'AKS Global Maintenance Facility Management Services',
+    'brand' => 'AKS Global Maintenance',
     'tagline' => 'We care your needs',
     'slogan' => 'Have an exciting comfort always…',
     'footer_text' => 'A one-stop facility management and manpower company serving Bangalore and Kochi.',
@@ -22,7 +22,7 @@ return [
 
     // Login created by `php artisan db:seed` (see database/seeders/AdminUserSeeder.php)
     'admin' => [
-        'name' => env('ADMIN_NAME', 'A2Z Admin'),
+        'name' => env('ADMIN_NAME', 'AKS Admin'),
         'email' => env('ADMIN_EMAIL'),
         'password' => env('ADMIN_PASSWORD'),
     ],
@@ -45,13 +45,13 @@ return [
             'map' => 'AMR Complex, Horamavu Agara Main Road, Bangalore 560043',
         ],
         [
-            'key' => 'registered',
-            'label' => 'Registered Office · Bangalore',
-            'street' => '# 7 Genisis Building, Cambridge, Halasuru',
-            'locality' => 'Bangalore',
+            'key' => 'corporate',
+            'label' => 'Corporate Office · Bengaluru',
+            'street' => '2nd Floor, Fountain Head Building, No.73, Varthur Rd',
+            'locality' => 'Bengaluru',
             'region' => 'Karnataka',
-            'postal' => '560008',
-            'map' => 'Halasuru, Bangalore 560008',
+            'postal' => '560093',
+            'map' => 'Fountain Head Building, Varthur Road, Bengaluru 560093',
         ],
         [
             'key' => 'kochi',
@@ -117,8 +117,8 @@ return [
     'leadership' => [
         [
             'name' => 'Mr. Prasad Ashok',
-            'role' => 'Managing Director',
-            'bio' => 'The anchorman of A2Z Global Maintenance. He brings more than 7 years of hands-on experience in this trade, and an innovative management style that has earned the loyalty of the whole team.',
+            'role' => 'Founder & CEO',
+            'bio' => 'Founder and CEO of AKS Global Maintenance. He brings more than 7 years of hands-on experience in this trade, and an innovative management style that has earned the loyalty of the whole team.',
             'photo' => 'img/md-prasad-ashok.jpg',
         ],
         [

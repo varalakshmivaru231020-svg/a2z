@@ -8,7 +8,7 @@
     <link rel="icon" href="{{ \App\Support\Assets::url('favicon.ico') }}" sizes="any">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}?v={{ @filemtime(public_path('css/admin.css')) }}">
 </head>
 <body class="admin">
@@ -16,6 +16,7 @@
         $nav = [
             ['admin.dashboard', 'Dashboard', 'home', 'admin.dashboard', null],
             ['admin.services.index', 'Services', 'briefcase', 'admin.services.*', null],
+            ['admin.leadership.index', 'Leadership', 'award', 'admin.leadership.*', null],
             ['admin.jobs.index', 'Job openings', 'clipboard', 'admin.jobs.*', null],
             ['admin.applications.index', 'Applications', 'users', 'admin.applications.*', $newApplications],
             ['admin.gallery.index', 'Gallery', 'image', 'admin.gallery.*', null],
@@ -26,9 +27,10 @@
     @endphp
 
     <aside class="sidebar" id="sidebar">
+        @php($sidebarLogo = \App\Support\SiteSettings::logo('header'))
         <a class="sidebar__brand" href="{{ route('admin.dashboard') }}">
-            <img src="{{ \App\Support\Assets::url('img/logo-mark.png') }}" alt="" width="46" height="38">
-            <span><strong>A2Z Global Maintenance</strong><small>Admin panel</small></span>
+            <img src="{{ $sidebarLogo['url'] }}" alt="" width="{{ $sidebarLogo['width'] }}" height="{{ $sidebarLogo['height'] }}">
+            <span><strong>AKS Global Maintenance</strong><small>Admin panel</small></span>
         </a>
 
         <nav class="sidebar__nav" aria-label="Admin">
