@@ -16,7 +16,8 @@
                 @endif
             </div>
             <div class="split__media">
-                <img src="{{ asset('img/office.jpg') }}" alt="A bright open-plan office of the kind AKS Global Maintenance keeps running smoothly" width="991" height="551" loading="lazy">
+                @php($profileImage = \App\Support\PageImages::get('about_profile'))
+                <img src="{{ $profileImage['url'] }}" alt="A bright open-plan office of the kind AKS Global Maintenance keeps running smoothly" width="{{ $profileImage['width'] }}" height="{{ $profileImage['height'] }}" loading="lazy">
             </div>
         </div>
     </section>
@@ -24,7 +25,8 @@
     {{-- Vision & mission: photo background, frosted-glass cards, button --}}
     <section class="section">
         <div class="container">
-            <div class="vm-section">
+            @php($visionImage = \App\Support\PageImages::get('about_vision'))
+            <div class="vm-section" @if ($visionImage['custom'])style="--vm-image: url('{{ $visionImage['url'] }}')"@endif>
                 <h2 class="vm-section__title">Our vision and mission</h2>
 
                 <div class="vm-section__grid">
@@ -65,7 +67,8 @@
                 <a class="btn btn--accent btn--lg" href="{{ route('recruitment.index') }}">Join our crew</a>
             </div>
             <div class="split__media">
-                <img src="{{ asset('img/crew.jpg') }}" alt="Illustration of a facility team collaborating on a project plan" width="599" height="681" loading="lazy">
+                @php($crewImage = \App\Support\PageImages::get('about_crew'))
+                <img src="{{ $crewImage['url'] }}" alt="Illustration of a facility team collaborating on a project plan" width="{{ $crewImage['width'] }}" height="{{ $crewImage['height'] }}" loading="lazy">
             </div>
         </div>
     </section>

@@ -81,6 +81,9 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('seo', [Admin\SeoPageController::class, 'edit'])->name('seo.edit');
         Route::put('seo', [Admin\SeoPageController::class, 'update'])->name('seo.update');
 
+        Route::get('images', [Admin\PageImageController::class, 'edit'])->name('images.edit');
+        Route::put('images', [Admin\PageImageController::class, 'update'])->name('images.update');
+
         Route::get('settings', [Admin\SettingsController::class, 'edit'])->name('settings.edit');
         Route::put('settings', [Admin\SettingsController::class, 'update'])->name('settings.update');
     });

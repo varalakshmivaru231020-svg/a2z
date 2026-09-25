@@ -20,7 +20,8 @@
             </div>
 
             <div class="hero__media">
-                <img src="{{ asset('img/office.jpg') }}" alt="Bright, tidy open-plan office maintained by AKS Global Maintenance facility services" width="991" height="551" fetchpriority="high">
+                @php($heroImage = \App\Support\PageImages::get('home_hero'))
+                <img src="{{ $heroImage['url'] }}" alt="Bright, tidy open-plan office maintained by AKS Global Maintenance facility services" width="{{ $heroImage['width'] }}" height="{{ $heroImage['height'] }}" fetchpriority="high">
                 <div class="hero__badge">
                     @php($badgeLogo = \App\Support\SiteSettings::logo('header'))
                     <img src="{{ $badgeLogo['url'] }}" alt="" width="{{ $badgeLogo['width'] }}" height="{{ $badgeLogo['height'] }}">
@@ -97,7 +98,8 @@
     <section class="section">
         <div class="container split">
             <div class="split__media">
-                <img src="{{ asset('img/crew.jpg') }}" alt="Illustration of a facility team planning a project around a table" width="599" height="681" loading="lazy">
+                @php($whyImage = \App\Support\PageImages::get('home_why'))
+                <img src="{{ $whyImage['url'] }}" alt="Illustration of a facility team planning a project around a table" width="{{ $whyImage['width'] }}" height="{{ $whyImage['height'] }}" loading="lazy">
             </div>
             <div class="split__copy">
                 <p class="eyebrow">Why AKS Global Maintenance</p>

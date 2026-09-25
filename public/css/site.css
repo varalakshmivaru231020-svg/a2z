@@ -309,7 +309,7 @@ sup { font-size: .6em; line-height: 0; }
 /* ---------- About ---------- */
 /* Vision & mission: photo background under a dark blue overlay, frosted-glass cards */
 .vm-section { padding: 80px 56px 72px; border-radius: 40px; color: #fff; text-align: center; overflow: hidden;
-    background: linear-gradient(rgba(7, 29, 56, .78), rgba(11, 87, 168, .66)), url('../img/office.jpg') center / cover no-repeat;
+    background: linear-gradient(rgba(7, 29, 56, .78), rgba(11, 87, 168, .66)), var(--vm-image, url('../img/office.jpg')) center / cover no-repeat;
     box-shadow: 0 30px 70px rgba(10, 42, 77, .22); }
 .vm-section__title { margin: 0 0 48px; color: #fff; font-size: clamp(2.1rem, 4.6vw, 3.4rem); line-height: 1.15; }
 .vm-section__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 28px; text-align: center; }

@@ -21,6 +21,7 @@
             ['admin.applications.index', 'Applications', 'users', 'admin.applications.*', $newApplications],
             ['admin.gallery.index', 'Gallery', 'image', 'admin.gallery.*', null],
             ['admin.enquiries.index', 'Enquiries', 'inbox', 'admin.enquiries.*', $unreadEnquiries],
+            ['admin.images.edit', 'Page images', 'image', 'admin.images.*', null],
             ['admin.seo.edit', 'Banners & SEO', 'globe', 'admin.seo.*', null],
             ['admin.settings.edit', 'Site settings', 'sliders', 'admin.settings.*', null],
         ];
