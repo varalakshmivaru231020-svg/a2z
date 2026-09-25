@@ -48,7 +48,7 @@ class SiteSettings
     /** Overlay the saved settings on config('site.*'). */
     public static function apply(): void
     {
-        self::$defaults ??= collect(['phone', 'phone_link', 'whatsapp', 'email', 'tagline', 'slogan', 'footer_text', 'offices', 'announcement'])
+        self::$defaults ??= collect(['phone', 'phone_link', 'whatsapp', 'email', 'email_secondary', 'tagline', 'slogan', 'footer_text', 'offices', 'announcement'])
             ->mapWithKeys(fn ($key) => ["site.$key" => config("site.$key")])
             ->all();
 
@@ -72,9 +72,13 @@ class SiteSettings
             }
         }
 
-        // The slogan may be cleared on purpose, so an empty saved value means "show none".
+        // The slogan and the second email may be cleared on purpose, so an empty saved value means "show none".
         if (array_key_exists('slogan', $saved)) {
             $config['site.slogan'] = (string) $saved['slogan'];
+        }
+
+        if (array_key_exists('email_secondary', $saved)) {
+            $config['site.email_secondary'] = (string) $saved['email_secondary'];
         }
 
         // Announcement bar: blank text falls back to the default, the two switches are saved as '1' / '0'.

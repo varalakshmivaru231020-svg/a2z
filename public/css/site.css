@@ -336,9 +336,11 @@ sup { font-size: .6em; line-height: 0; }
 .contact-quick span { display: block; font-size: .82rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
 .contact-quick a { font-weight: 700; font-size: 1.05rem; color: var(--navy); text-decoration: none; }
 .contact-quick a:hover { color: var(--blue); }
+.contact-quick a + a { display: block; margin-top: 2px; } /* a second email sits on its own line */
 .contact-info__lead { color: var(--muted); max-width: 460px; }
-.offices { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; margin-bottom: 32px; }
-.office { display: flex; flex-direction: column; align-items: flex-start; padding: 28px; background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); transition: border-color .2s, box-shadow .2s; }
+/* Cards are a third of the row wide; one, two or a leftover card sit in the middle instead of hugging the left edge. */
+.offices { display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; margin-bottom: 32px; }
+.office { flex: 0 1 calc((100% - 44px) / 3); min-width: 0; display: flex; flex-direction: column; align-items: flex-start; padding: 28px; background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); box-shadow: var(--shadow); transition: border-color .2s, box-shadow .2s; }
 .office.is-active { border-color: var(--blue); box-shadow: 0 0 0 3px rgba(11, 87, 168, .14), var(--shadow); }
 .office h3 { margin: 0 0 6px; font-size: 1.1rem; }
 .office address { color: var(--muted); font-size: .95rem; margin-bottom: 16px; }
@@ -474,7 +476,7 @@ a.pagination__item:hover { border-color: var(--blue); color: var(--blue); }
     .stat:nth-child(3) { border-left: 0; }
 
     .split, .contact-grid { grid-template-columns: 1fr; gap: 36px; }
-    .offices { grid-template-columns: 1fr; }
+    .office { flex-basis: 100%; }
     .split__media { max-width: 560px; }
     .detail { grid-template-columns: 1fr; }
     .leader { grid-template-columns: 1fr; padding: 22px; gap: 28px; }

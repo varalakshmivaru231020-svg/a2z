@@ -36,6 +36,9 @@
             <ul class="footer__contact">
                 <li><x-icon name="phone" :size="18" /><a href="tel:{{ config('site.phone_link') }}">{{ config('site.phone') }}</a></li>
                 <li><x-icon name="mail" :size="18" /><a href="mailto:{{ config('site.email') }}">{{ config('site.email') }}</a></li>
+                @if (filled(config('site.email_secondary')))
+                    <li><x-icon name="mail" :size="18" /><a href="mailto:{{ config('site.email_secondary') }}">{{ config('site.email_secondary') }}</a></li>
+                @endif
                 @foreach (config('site.offices') as $office)
                     <li>
                         <x-icon name="map-pin" :size="18" />

@@ -97,6 +97,41 @@ class SettingsAndBannersTest extends TestCase
         $this->assertStringNotContainsString('mailto:', $topbar);
     }
 
+    /* ---------------------------------------------------- second email */
+
+    public function test_a_second_email_is_optional_and_shows_in_the_footer_and_on_the_contact_page(): void
+    {
+        $this->actingAsAdmin();
+
+        // Not set: only the main address is shown (the Contact page lists it in its own block as well as in the footer).
+        $this->assertSame(2, substr_count($this->get('/contact')->assertOk()->getContent(), 'mailto:'));
+        $this->assertSame(1, substr_count($this->get('/about')->assertOk()->getContent(), 'mailto:'));
+
+        $this->get('/admin/settings')->assertOk()->assertSee('name="email_secondary"', false)->assertSee('Second email address (optional)');
+
+        $this->saveSettings(['email' => 'hello@a2z.example', 'email_secondary' => 'sales@a2z.example'])->assertSessionHasNoErrors();
+
+        $contact = $this->get('/contact')->assertOk()->getContent();
+        $this->assertSame(2, substr_count($contact, 'mailto:hello@a2z.example'), 'contact block + footer');
+        $this->assertSame(2, substr_count($contact, 'mailto:sales@a2z.example'), 'contact block + footer');
+        $about = $this->get('/about')->getContent();
+        $this->assertSame(1, substr_count($about, 'mailto:hello@a2z.example'), 'footer only');
+        $this->assertSame(1, substr_count($about, 'mailto:sales@a2z.example'), 'footer only');
+
+        // Clearing it hides it again.
+        $this->saveSettings(['email_secondary' => ''])->assertSessionHasNoErrors();
+        $this->get('/contact')->assertDontSee('sales@a2z.example');
+        $this->get('/about')->assertDontSee('sales@a2z.example');
+    }
+
+    public function test_the_second_email_must_be_a_different_valid_address(): void
+    {
+        $this->actingAsAdmin();
+
+        $this->saveSettings(['email' => 'hello@a2z.example', 'email_secondary' => 'not-an-email'])->assertSessionHasErrors('email_secondary');
+        $this->saveSettings(['email' => 'hello@a2z.example', 'email_secondary' => 'hello@a2z.example'])->assertSessionHasErrors('email_secondary');
+    }
+
     /* ------------------------------------------------------ announcement bar */
 
     public function test_the_announcement_bar_is_on_the_home_page_only_by_default(): void

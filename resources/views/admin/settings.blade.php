@@ -15,6 +15,8 @@
                         <x-admin.field name="phone" label="Phone number" :value="config('site.phone')" required maxlength="20"
                             hint="Also used for WhatsApp. Include the country code, e.g. +91 98765 43210 (a plain 10-digit number is treated as Indian)." />
                         <x-admin.field name="email" label="Email address" type="email" :value="config('site.email')" required maxlength="150" />
+                        <x-admin.field name="email_secondary" label="Second email address (optional)" type="email" :value="config('site.email_secondary')" maxlength="150"
+                            hint="Shown under the main email in the footer and on the Contact page. Leave blank to show only one." />
                     </div>
                 </section>
 

@@ -12,7 +12,7 @@
                 <ul class="contact-quick">
                     <li><x-icon name="phone" :size="22" /><div><span>Phone</span><a href="tel:{{ config('site.phone_link') }}">{{ config('site.phone') }}</a></div></li>
                     <li><x-icon name="message" :size="22" /><div><span>WhatsApp</span><a href="https://wa.me/{{ config('site.whatsapp') }}" target="_blank" rel="noopener">Message us on WhatsApp</a></div></li>
-                    <li><x-icon name="mail" :size="22" /><div><span>Email</span><a href="mailto:{{ config('site.email') }}">{{ config('site.email') }}</a></div></li>
+                    <li><x-icon name="mail" :size="22" /><div><span>Email</span><a href="mailto:{{ config('site.email') }}">{{ config('site.email') }}</a>@if (filled(config('site.email_secondary')))<a href="mailto:{{ config('site.email_secondary') }}">{{ config('site.email_secondary') }}</a>@endif</div></li>
                 </ul>
             </div>
 
@@ -23,7 +23,7 @@
         </div>
     </section>
 
-    {{-- 2. Our offices: three cards in a row, below the enquiry form, with the map they control --}}
+    {{-- 2. Our offices: up to three cards per row (centred when there are fewer), below the enquiry form, with the map they control --}}
     <section class="section section--soft" id="offices">
         <div class="container">
             <x-section-head eyebrow="Find us" title="Our offices" lead="Visit us in Bangalore or Kochi. Choose an office to see it on the map." />

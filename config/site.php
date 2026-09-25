@@ -38,6 +38,7 @@ return [
     'phone_link' => '+918714634801',
     'whatsapp' => '918714634801',
     'email' => 'josha.infinity777@gmail.com',
+    'email_secondary' => null, // optional second address, shown in the footer and on the Contact page
 
     // Order matters: the first office is the one shown on the map by default
     // and used as the primary address in structured data.

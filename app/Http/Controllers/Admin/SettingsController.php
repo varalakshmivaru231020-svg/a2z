@@ -39,6 +39,7 @@ class SettingsController extends Controller
         $data = $request->validate([
             'phone' => ['required', 'string', 'regex:/^[0-9+\-\s()]{7,20}$/'],
             'email' => ['required', 'email:rfc', 'max:150'],
+            'email_secondary' => ['nullable', 'email:rfc', 'max:150', 'different:email'],
             'tagline' => ['required', 'string', 'max:120'],
             'slogan' => ['nullable', 'string', 'max:160'],
             'footer_text' => ['nullable', 'string', 'max:400'],
@@ -57,6 +58,7 @@ class SettingsController extends Controller
             'offices.*.map' => ['nullable', 'string', 'max:200'],
         ], [
             'phone.regex' => 'Please enter a valid phone number.',
+            'email_secondary.different' => 'The second email should be different from the main one — or leave it blank.',
             'announcement_text.required_if_accepted' => 'Enter the announcement text, or untick “Show the announcement bar”.',
             'offices.*.label.required_with' => 'Give this office a name (e.g. “Branch Office · Kochi”).',
             'offices.*.street.required_with' => 'Enter the street address for this office.',
@@ -68,6 +70,7 @@ class SettingsController extends Controller
         $values = [
             'phone' => $data['phone'],
             'email' => $data['email'],
+            'email_secondary' => $data['email_secondary'] ?? '', // blank = not shown
             'tagline' => $data['tagline'],
             'slogan' => $data['slogan'] ?? '',           // blank hides the slogan
             'footer_text' => $data['footer_text'] ?? '', // blank = built-in text
