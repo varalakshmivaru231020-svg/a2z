@@ -76,6 +76,27 @@ class AdminTest extends TestCase
         $this->assertGuest();
     }
 
+    public function test_legacy_plaintext_admin_passwords_are_rehashed_on_successful_login(): void
+    {
+        User::query()->insert([
+            'name' => 'Boss',
+            'email' => 'boss@example.com',
+            'password' => 'correct-horse',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $user = User::where('email', 'boss@example.com')->firstOrFail();
+        $this->assertSame('correct-horse', $user->getAuthPassword());
+
+        $this->post('/admin/login', ['email' => 'boss@example.com', 'password' => 'correct-horse'])->assertRedirect('/admin');
+
+        $user->refresh();
+        $this->assertNotSame('correct-horse', $user->getAuthPassword());
+        $this->assertTrue(password_verify('correct-horse', $user->getAuthPassword()));
+        $this->assertAuthenticatedAs($user);
+    }
+
     public function test_login_is_throttled_after_repeated_failures(): void
     {
         User::factory()->create(['email' => 'boss@example.com', 'password' => 'correct-horse']);

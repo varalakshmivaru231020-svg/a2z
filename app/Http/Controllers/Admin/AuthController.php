@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,6 +36,20 @@ class AuthController extends Controller
             throw ValidationException::withMessages([
                 'email' => "Too many login attempts. Please try again in {$minutes} minute(s).",
             ]);
+        }
+
+        $user = User::where('email', $credentials['email'])->first();
+
+        if ($user !== null) {
+            $storedPassword = $user->getAuthPassword();
+            $isLegacyPlaintextPassword = ! blank($storedPassword)
+                && ! preg_match('/^\$2[aby]\$/', $storedPassword)
+                && $storedPassword === $credentials['password'];
+
+            if ($isLegacyPlaintextPassword) {
+                $user->password = $credentials['password'];
+                $user->save();
+            }
         }
 
         if (! Auth::attempt($credentials, $request->boolean('remember'))) {

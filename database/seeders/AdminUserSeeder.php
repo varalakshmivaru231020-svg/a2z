@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class AdminUserSeeder extends Seeder
@@ -38,7 +39,7 @@ class AdminUserSeeder extends Seeder
 
         User::updateOrCreate(
             ['email' => $email],
-            ['name' => config('site.admin.name'), 'password' => $password],
+            ['name' => config('site.admin.name'), 'password' => Hash::make($password)],
         );
 
         $this->command?->info("Admin user ready: {$email}");
