@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 use Illuminate\View\View;
 use RuntimeException;
 
-/** Site settings: contact details, tagline, footer text, office addresses and the header / footer logos. */
+/** Site settings: contact details, tagline, announcement bar, footer text, office addresses and the header / footer logos. */
 class SettingsController extends Controller
 {
     private const OFFICE_SLOTS = 4;
@@ -42,6 +42,7 @@ class SettingsController extends Controller
             'tagline' => ['required', 'string', 'max:120'],
             'slogan' => ['nullable', 'string', 'max:160'],
             'footer_text' => ['nullable', 'string', 'max:400'],
+            'announcement_text' => ['nullable', 'string', 'max:160', 'required_if_accepted:announcement_enabled'],
             'header_logo' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:4096'],
             'footer_logo' => ['nullable', 'image', 'mimes:png,jpg,jpeg,webp', 'max:4096'],
             'offices' => ['required', 'array'],
@@ -56,6 +57,7 @@ class SettingsController extends Controller
             'offices.*.map' => ['nullable', 'string', 'max:200'],
         ], [
             'phone.regex' => 'Please enter a valid phone number.',
+            'announcement_text.required_if_accepted' => 'Enter the announcement text, or untick “Show the announcement bar”.',
             'offices.*.label.required_with' => 'Give this office a name (e.g. “Branch Office · Kochi”).',
             'offices.*.street.required_with' => 'Enter the street address for this office.',
             'offices.*.locality.required_with' => 'Enter the city for this office.',
@@ -69,6 +71,9 @@ class SettingsController extends Controller
             'tagline' => $data['tagline'],
             'slogan' => $data['slogan'] ?? '',           // blank hides the slogan
             'footer_text' => $data['footer_text'] ?? '', // blank = built-in text
+            'announcement_enabled' => $request->boolean('announcement_enabled') ? '1' : '0',
+            'announcement_text' => $data['announcement_text'] ?? '', // blank = built-in text
+            'announcement_home_only' => $request->boolean('announcement_home_only') ? '1' : '0',
             'offices' => json_encode($this->offices($data['offices']), JSON_UNESCAPED_UNICODE),
             'footer_logo_badge' => $request->boolean('footer_logo_badge') ? '1' : '0',
         ];

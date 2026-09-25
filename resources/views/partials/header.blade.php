@@ -1,9 +1,16 @@
-<header class="site-header">
-    <div class="topbar">
-        <div class="container topbar__inner">
-            <p>{{ config('site.tagline') }} — facility &amp; manpower services in Bangalore and Kochi</p>
+@php
+    $announcement = config('site.announcement');
+    $showAnnouncement = $announcement['enabled'] && filled($announcement['text']) && (! $announcement['home_only'] || request()->routeIs('home'));
+@endphp
+{{-- Without the bar the sticky header must not reserve room for it. --}}
+<header class="site-header" @unless ($showAnnouncement)style="--topbar-h: 0px"@endunless>
+    @if ($showAnnouncement)
+        <div class="topbar">
+            <div class="container topbar__inner">
+                <p>{{ $announcement['text'] }}</p>
+            </div>
         </div>
-    </div>
+    @endif
 
     <div class="navbar">
         <div class="container navbar__inner">

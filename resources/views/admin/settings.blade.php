@@ -19,10 +19,22 @@
                 </section>
 
                 <section class="card">
+                    <h2>Announcement bar</h2>
+                    <p class="muted">The thin dark strip at the very top of the website. Change the message any time, or switch it off.</p>
+                    <div class="form-grid">
+                        <x-admin.check class="full" name="announcement_enabled" label="Show the announcement bar" :checked="config('site.announcement.enabled')" />
+                        <x-admin.field class="full" name="announcement_text" label="Announcement text" :value="config('site.announcement.text')" maxlength="160"
+                            hint="One short line, up to 160 characters. Leave blank to use the built-in message." />
+                        <x-admin.check class="full" name="announcement_home_only" label="Show it on the home page only" :checked="config('site.announcement.home_only')"
+                            hint="Untick to show the bar on every page. It is hidden on phones to save screen space." />
+                    </div>
+                </section>
+
+                <section class="card">
                     <h2>Tagline &amp; footer text</h2>
                     <div class="form-grid">
                         <x-admin.field class="full" name="tagline" label="Tagline" :value="config('site.tagline')" required maxlength="120"
-                            hint="Shown in the top bar and the footer, and at the start of the home page introduction." />
+                            hint="Shown in the footer and at the start of the home page introduction." />
                         <x-admin.field class="full" name="slogan" label="Slogan (optional)" :value="config('site.slogan')" maxlength="160"
                             hint="A small italic line in the footer and on the About page. Leave blank to hide it." />
                         <x-admin.field class="full" name="footer_text" label="Footer description" type="textarea" rows="3" :value="config('site.footer_text')" maxlength="400"

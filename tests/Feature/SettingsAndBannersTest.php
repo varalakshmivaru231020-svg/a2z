@@ -87,14 +87,66 @@ class SettingsAndBannersTest extends TestCase
             ->assertDontSee('+91 87146 34801');
     }
 
-    public function test_the_top_bar_shows_only_the_tagline_line_no_phone_or_email(): void
+    public function test_the_top_bar_shows_only_the_announcement_line_no_phone_or_email(): void
     {
         $html = $this->get('/')->assertOk()->getContent();
         $topbar = substr($html, strpos($html, 'class="topbar"'), strpos($html, 'class="navbar"') - strpos($html, 'class="topbar"'));
 
-        $this->assertStringContainsString(config('site.tagline'), $topbar);
+        $this->assertStringContainsString('We care your needs — facility &amp; manpower services all South India', $topbar);
         $this->assertStringNotContainsString('tel:', $topbar);
         $this->assertStringNotContainsString('mailto:', $topbar);
+    }
+
+    /* ------------------------------------------------------ announcement bar */
+
+    public function test_the_announcement_bar_is_on_the_home_page_only_by_default(): void
+    {
+        $this->get('/')->assertOk()->assertSee('class="topbar"', false)->assertDontSee('--topbar-h: 0px', false);
+
+        foreach (['/about', '/services', '/gallery', '/contact'] as $url) {
+            $this->get($url)->assertOk()
+                ->assertDontSee('class="topbar"', false)
+                ->assertSee('--topbar-h: 0px', false); // the sticky header does not reserve room for a missing bar
+        }
+    }
+
+    public function test_the_announcement_text_is_editable_and_can_show_on_every_page(): void
+    {
+        $this->actingAsAdmin();
+        $this->get('/admin/settings')->assertOk()->assertSee('Announcement bar')->assertSee('name="announcement_text"', false)
+            ->assertSee('We care your needs — facility &amp; manpower services all South India', false);
+
+        $this->saveSettings([
+            'announcement_enabled' => '1',
+            'announcement_text' => 'Now hiring in Kochi & Chennai',
+            'announcement_home_only' => '0',
+        ])->assertSessionHasNoErrors();
+
+        foreach (['/', '/about', '/services'] as $url) {
+            $this->get($url)->assertOk()->assertSee('<p>Now hiring in Kochi &amp; Chennai</p>', false)->assertDontSee('--topbar-h: 0px', false);
+        }
+
+        $this->saveSettings(['announcement_enabled' => '1', 'announcement_text' => '<script>alert(1)</script>', 'announcement_home_only' => '1']);
+        $this->get('/')->assertDontSee('<script>alert(1)</script>', false)->assertSee('&lt;script&gt;alert(1)&lt;/script&gt;', false);
+    }
+
+    public function test_the_announcement_bar_can_be_switched_off_and_a_blank_text_needs_it_off(): void
+    {
+        $this->actingAsAdmin();
+
+        $this->saveSettings(['announcement_enabled' => '1', 'announcement_text' => '', 'announcement_home_only' => '1'])
+            ->assertSessionHasErrors('announcement_text');
+        $this->saveSettings(['announcement_enabled' => '1', 'announcement_text' => str_repeat('a', 161)])
+            ->assertSessionHasErrors('announcement_text');
+
+        $this->saveSettings(['announcement_enabled' => '0', 'announcement_text' => 'Hidden for now', 'announcement_home_only' => '1'])
+            ->assertSessionHasNoErrors();
+        $this->get('/')->assertOk()->assertDontSee('Hidden for now')->assertDontSee('class="topbar"', false)->assertSee('--topbar-h: 0px', false);
+
+        // Switching it off with the text cleared keeps the built-in message for when it is turned back on.
+        $this->saveSettings(['announcement_enabled' => '0', 'announcement_text' => '', 'announcement_home_only' => '1'])->assertSessionHasNoErrors();
+        $this->saveSettings(['announcement_enabled' => '1', 'announcement_text' => 'Back again'])->assertSessionHasNoErrors();
+        $this->get('/')->assertSee('<p>Back again</p>', false);
     }
 
     public function test_a_plain_ten_digit_number_is_treated_as_indian_for_links(): void

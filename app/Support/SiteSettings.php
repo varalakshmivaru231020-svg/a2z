@@ -48,7 +48,7 @@ class SiteSettings
     /** Overlay the saved settings on config('site.*'). */
     public static function apply(): void
     {
-        self::$defaults ??= collect(['phone', 'phone_link', 'whatsapp', 'email', 'tagline', 'slogan', 'footer_text', 'offices'])
+        self::$defaults ??= collect(['phone', 'phone_link', 'whatsapp', 'email', 'tagline', 'slogan', 'footer_text', 'offices', 'announcement'])
             ->mapWithKeys(fn ($key) => ["site.$key" => config("site.$key")])
             ->all();
 
@@ -76,6 +76,18 @@ class SiteSettings
         if (array_key_exists('slogan', $saved)) {
             $config['site.slogan'] = (string) $saved['slogan'];
         }
+
+        // Announcement bar: blank text falls back to the default, the two switches are saved as '1' / '0'.
+        $announcement = $config['site.announcement'];
+        if (filled($saved['announcement_text'] ?? null)) {
+            $announcement['text'] = $saved['announcement_text'];
+        }
+        foreach (['enabled' => 'announcement_enabled', 'home_only' => 'announcement_home_only'] as $key => $name) {
+            if (array_key_exists($name, $saved)) {
+                $announcement[$key] = $saved[$name] === '1';
+            }
+        }
+        $config['site.announcement'] = $announcement;
 
         if (filled($saved['offices'] ?? null) && is_array($offices = json_decode($saved['offices'], true)) && $offices) {
             $config['site.offices'] = array_values($offices);

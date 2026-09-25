@@ -18,6 +18,13 @@ return [
     'tagline' => 'We care your needs',
     'slogan' => 'Have an exciting comfort always…',
     'footer_text' => 'A one-stop facility management and manpower company serving Bangalore and Kochi.',
+
+    // The bar at the very top of the site (edited in Admin > Site settings > Announcement bar).
+    'announcement' => [
+        'enabled' => true,
+        'text' => 'We care your needs — facility & manpower services all South India',
+        'home_only' => true,
+    ],
     'founded' => 2023,
 
     // Login created by `php artisan db:seed` (see database/seeders/AdminUserSeeder.php)
