@@ -55,7 +55,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
 
         Route::resource('services', Admin\ServiceController::class)->except('show');
 
-        Route::resource('leadership', Admin\LeaderController::class)->except('show');
+        // "leadership" does not singularise, so name the parameter to match the controller's Leader $leader.
+        Route::resource('leadership', Admin\LeaderController::class)->parameters(['leadership' => 'leader'])->except('show');
 
         Route::resource('jobs', Admin\JobOpeningController::class)->except('show');
         Route::patch('jobs/{job}/close', [Admin\JobOpeningController::class, 'close'])->name('jobs.close');
