@@ -393,6 +393,8 @@ sup { font-size: .6em; line-height: 0; }
     background: linear-gradient(135deg, #1d6fd6 0%, var(--blue) 48%, var(--navy) 100%);
     box-shadow: 0 30px 70px rgba(10, 42, 77, .22);
 }
+/* a photo uploaded in Admin > Page images sits under a dark blue overlay */
+.cta-box.has-image { background: linear-gradient(135deg, rgba(7, 29, 56, .82) 0%, rgba(11, 87, 168, .7) 100%), var(--cta-image) center / cover no-repeat; }
 /* soft decorative circles, top-right and bottom-left */
 .cta-box::before, .cta-box::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
 .cta-box::before { width: 320px; height: 320px; right: -90px; top: -110px; background: rgba(255, 255, 255, .09); }

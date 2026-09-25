@@ -11,7 +11,9 @@ use Illuminate\Support\Facades\Storage;
 class PageImages
 {
     /**
-     * @var array<string, array{page: string, label: string, default: string, width: int, height: int, max: int, hint: string}>
+     * A slot with a null default has no built-in photo: the page keeps its plain styling until one is uploaded.
+     *
+     * @var array<string, array{page: string, label: string, default: ?string, width: int, height: int, max: int, hint: string}>
      */
     public const SLOTS = [
         'home_hero' => [
@@ -49,6 +51,13 @@ class PageImages
             'width' => 599, 'height' => 681, 'max' => 1200,
             'hint' => 'Portrait or square photo works best, about 600 × 680 or larger.',
         ],
+        'cta_banner' => [
+            'page' => 'Call-to-action banner',
+            'label' => 'Banner background (“Call now / Send an enquiry” band)',
+            'default' => null,
+            'width' => 1600, 'height' => 600, 'max' => 1920,
+            'hint' => 'Shown on the About, Services, Gallery and Recruitment pages. Wide photo, about 1600 × 600 or larger. It sits under a dark blue overlay so the text stays readable.',
+        ],
     ];
 
     public static function setting(string $slot): string
@@ -67,7 +76,7 @@ class PageImages
     /**
      * The uploaded image for a slot, otherwise the built-in one.
      *
-     * @return array{url: string, width: int, height: int, custom: bool}
+     * @return array{url: ?string, width: int, height: int, custom: bool} url is null for a slot with no built-in photo
      */
     public static function get(string $slot): array
     {
@@ -75,7 +84,7 @@ class PageImages
         $path = self::path($slot);
 
         if (! $path) {
-            return ['url' => Assets::url($def['default']), 'width' => $def['width'], 'height' => $def['height'], 'custom' => false];
+            return ['url' => $def['default'] ? Assets::url($def['default']) : null, 'width' => $def['width'], 'height' => $def['height'], 'custom' => false];
         }
 
         $disk = Storage::disk('uploads');

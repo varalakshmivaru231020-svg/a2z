@@ -20,11 +20,15 @@
                         @php($image = $slot['image'])
                         <div class="image-slot fld @error("images.{$slot['slot']}") has-error @enderror">
                             <label for="image-{{ $slot['slot'] }}">{{ $slot['label'] }}</label>
-                            <img class="image-preview" src="{{ $image['url'] }}" alt="Current image: {{ $slot['label'] }}" loading="lazy">
-                            <p class="fld__hint" style="margin:0 0 8px">{{ $image['custom'] ? 'Your uploaded image.' : 'Built-in image — nothing uploaded yet.' }}</p>
+                            @if ($image['url'])
+                                <img class="image-preview" src="{{ $image['url'] }}" alt="Current image: {{ $slot['label'] }}" loading="lazy">
+                            @else
+                                <div class="image-preview image-preview--none">Plain blue background</div>
+                            @endif
+                            <p class="fld__hint" style="margin:0 0 8px">{{ $image['custom'] ? 'Your uploaded image.' : ($image['url'] ? 'Built-in image — nothing uploaded yet.' : 'Nothing uploaded yet — the band shows its default blue background.') }}</p>
 
                             @if ($image['custom'])
-                                <label class="check"><input type="checkbox" name="remove_image[{{ $slot['slot'] }}]" value="1"> <span>Remove my image (go back to the built-in one)</span></label>
+                                <label class="check"><input type="checkbox" name="remove_image[{{ $slot['slot'] }}]" value="1"> <span>Remove my image (go back to the default)</span></label>
                             @endif
 
                             <input id="image-{{ $slot['slot'] }}" name="images[{{ $slot['slot'] }}]" type="file" accept="image/jpeg,image/png,image/webp" style="margin-top:8px">

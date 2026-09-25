@@ -83,6 +83,34 @@ class PageImagesTest extends TestCase
         $this->get('/')->assertSee('img/crew.jpg', false)->assertDontSee('/uploads/pages/', false);
     }
 
+    public function test_the_cta_banner_photo_appears_on_every_page_with_the_band_and_is_plain_until_uploaded(): void
+    {
+        $this->fakeDisks();
+        $this->actingAsAdmin();
+
+        foreach (['/about', '/services', '/gallery', '/recruitment'] as $url) {
+            $this->get($url)->assertOk()->assertDontSee('--cta-image', false)->assertDontSee('cta-box has-image', false);
+        }
+
+        $this->save(['cta_banner' => UploadedFile::fake()->image('cta.jpg', 2400, 800)])->assertSessionHasNoErrors();
+        $path = PageImages::path('cta_banner');
+        Storage::disk('uploads')->assertExists($path);
+
+        foreach (['/about', '/services', '/gallery', '/recruitment'] as $url) {
+            $this->assertMatchesRegularExpression(
+                '#class="cta-box has-image" style="--cta-image: url\(\'[^\']*/uploads/pages/[^\']+\'\)"#',
+                $this->get($url)->assertOk()->getContent(),
+                $url,
+            );
+        }
+
+        $this->get('/admin/images')->assertOk()->assertSee('Your uploaded image.');
+
+        $this->save([], ['cta_banner' => '1']);
+        Storage::disk('uploads')->assertMissing($path);
+        $this->get('/about')->assertDontSee('--cta-image', false);
+    }
+
     public function test_bad_files_are_refused_and_nothing_is_saved(): void
     {
         $this->fakeDisks();
