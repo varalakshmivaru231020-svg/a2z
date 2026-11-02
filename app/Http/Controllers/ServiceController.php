@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Service;
+use App\Models\ServiceCategory;
 use App\Support\Seo;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
