@@ -64,9 +64,16 @@
                 var newContent = doc.querySelector('[data-services-container]');
                 if (newContent) container.innerHTML = newContent.innerHTML;
 
-                // Update active button state
+                // Update active button styles
                 filters.querySelectorAll('a[data-category]').forEach(function (btn) {
-                    btn.classList.toggle('is-active', btn.getAttribute('data-category') === category);
+                    var isActive = btn.getAttribute('data-category') === category;
+                    if (isActive) {
+                        btn.classList.add('bg-blue-600', 'text-white', 'border-blue-600');
+                        btn.classList.remove('bg-white', 'text-gray-700', 'border-gray-300');
+                    } else {
+                        btn.classList.remove('bg-blue-600', 'text-white', 'border-blue-600');
+                        btn.classList.add('bg-white', 'text-gray-700', 'border-gray-300');
+                    }
                 });
 
                 // Update browser history

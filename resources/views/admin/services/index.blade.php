@@ -7,10 +7,10 @@
 @endsection
 
 @section('content')
-    <div class=”tabs” data-service-filters>
-        <a href=”#” data-category=”” @class(['is-active' => ! $category])>All</a>
+    <div class=”flex flex-wrap gap-1.5 mb-5” data-service-filters>
+        <a href=”#” data-category=”” @class(['px-4 py-1.5 rounded-full font-bold text-sm no-underline transition-colors' => true, 'bg-blue-600 text-white border border-blue-600' => ! $category, 'bg-white text-gray-700 border border-gray-300 hover:border-blue-600' => !! $category])>All</a>
         @foreach (config('site.service_categories') as $key => $cat)
-            <a href=”#” data-category=”{{ $key }}” @class(['is-active' => $category === $key])>{{ $cat['name'] }}</a>
+            <a href=”#” data-category=”{{ $key }}” @class(['px-4 py-1.5 rounded-full font-bold text-sm no-underline transition-colors' => true, 'bg-blue-600 text-white border border-blue-600' => $category === $key, 'bg-white text-gray-700 border border-gray-300 hover:border-blue-600' => $category !== $key])>{{ $cat['name'] }}</a>
         @endforeach
     </div>
 
