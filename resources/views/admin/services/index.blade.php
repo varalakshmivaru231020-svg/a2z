@@ -55,35 +55,4 @@
             @endif
         </div>
     </div>
-
-    <script>
-        (function () {
-            var filters = document.querySelector('[data-service-filters]');
-            var container = document.querySelector('[data-services-container]');
-
-            if (!filters || !container) return;
-
-            filters.addEventListener('click', function (e) {
-                var link = e.target.closest('a[data-category]');
-                if (!link) return;
-
-                e.preventDefault();
-                var category = link.getAttribute('data-category');
-
-                fetch(window.location.pathname + (category ? '?category=' + encodeURIComponent(category) : ''), {
-                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
-                })
-                .then(function (r) { return r.text(); })
-                .then(function (html) {
-                    var parser = new DOMParser();
-                    var doc = parser.parseFromString(html, 'text/html');
-                    var newContent = doc.querySelector('[data-services-container]');
-                    if (newContent) container.innerHTML = newContent.innerHTML;
-
-                    var newFilters = doc.querySelector('[data-service-filters]');
-                    if (newFilters) filters.innerHTML = newFilters.innerHTML;
-                });
-            });
-        })();
-    </script>
 @endsection
