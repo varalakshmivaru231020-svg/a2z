@@ -54,10 +54,9 @@
 
             e.preventDefault();
             var category = link.getAttribute('data-category');
+            var url = window.location.pathname + (category ? '?category=' + encodeURIComponent(category) : '');
 
-            fetch(window.location.pathname + (category ? '?category=' + encodeURIComponent(category) : ''), {
-                headers: { 'X-Requested-With': 'XMLHttpRequest' }
-            })
+            fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
             .then(function (r) { return r.text(); })
             .then(function (html) {
                 var parser = new DOMParser();
@@ -65,8 +64,13 @@
                 var newContent = doc.querySelector('[data-services-container]');
                 if (newContent) container.innerHTML = newContent.innerHTML;
 
-                var newFilters = doc.querySelector('[data-service-filters]');
-                if (newFilters) filters.innerHTML = newFilters.innerHTML;
+                // Update active button state
+                filters.querySelectorAll('a[data-category]').forEach(function (btn) {
+                    btn.classList.toggle('is-active', btn.getAttribute('data-category') === category);
+                });
+
+                // Update browser history
+                window.history.pushState({}, '', url);
             });
         });
     }
