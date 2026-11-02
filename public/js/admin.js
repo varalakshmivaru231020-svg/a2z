@@ -67,13 +67,9 @@
                 // Update active button styles
                 filters.querySelectorAll('a[data-category]').forEach(function (btn) {
                     var isActive = btn.getAttribute('data-category') === category;
-                    if (isActive) {
-                        btn.classList.add('bg-blue-600', 'text-white', 'border-blue-600');
-                        btn.classList.remove('bg-white', 'text-gray-700', 'border-gray-300');
-                    } else {
-                        btn.classList.remove('bg-blue-600', 'text-white', 'border-blue-600');
-                        btn.classList.add('bg-white', 'text-gray-700', 'border-gray-300');
-                    }
+                    btn.style.background = isActive ? '#2563eb' : '#fff';
+                    btn.style.color = isActive ? '#fff' : '#374151';
+                    btn.style.borderColor = isActive ? '#2563eb' : '#e5e7eb';
                 });
 
                 // Update browser history

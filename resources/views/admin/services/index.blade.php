@@ -7,10 +7,10 @@
 @endsection
 
 @section('content')
-    <div class=”flex flex-wrap gap-1.5 mb-5” data-service-filters>
-        <a href=”#” data-category=”” @class(['px-4 py-1.5 rounded-full font-bold text-sm no-underline transition-colors' => true, 'bg-blue-600 text-white border border-blue-600' => ! $category, 'bg-white text-gray-700 border border-gray-300 hover:border-blue-600' => !! $category])>All</a>
+    <div data-service-filters style=”display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 20px;”>
+        <a href=”#” data-category=”” style=”padding: 7px 16px; border-radius: 999px; font-weight: 700; font-size: 0.85rem; text-decoration: none; border: 1px solid @if(! $category)#2563eb; background: #2563eb; color: #fff;@else#e5e7eb; background: #fff; color: #374151;@endif” onclick=”return false;”>All</a>
         @foreach (config('site.service_categories') as $key => $cat)
-            <a href=”#” data-category=”{{ $key }}” @class(['px-4 py-1.5 rounded-full font-bold text-sm no-underline transition-colors' => true, 'bg-blue-600 text-white border border-blue-600' => $category === $key, 'bg-white text-gray-700 border border-gray-300 hover:border-blue-600' => $category !== $key])>{{ $cat['name'] }}</a>
+            <a href=”#” data-category=”{{ $key }}” style=”padding: 7px 16px; border-radius: 999px; font-weight: 700; font-size: 0.85rem; text-decoration: none; border: 1px solid @if($category === $key)#2563eb; background: #2563eb; color: #fff;@else#e5e7eb; background: #fff; color: #374151;@endif” onclick=”return false;”>{{ $cat['name'] }}</a>
         @endforeach
     </div>
 
