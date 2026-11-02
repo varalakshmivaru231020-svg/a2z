@@ -53,28 +53,22 @@
             if (!link) return;
 
             e.preventDefault();
-            var category = link.getAttribute('data-category');
-            var url = window.location.pathname + (category ? '?category=' + encodeURIComponent(category) : '');
+            var url = link.href;
 
             fetch(url, { headers: { 'X-Requested-With': 'XMLHttpRequest' } })
             .then(function (r) { return r.text(); })
             .then(function (html) {
-                var parser = new DOMParser();
-                var doc = parser.parseFromString(html, 'text/html');
+                var doc = new DOMParser().parseFromString(html, 'text/html');
                 var newContent = doc.querySelector('[data-services-container]');
-                if (newContent) container.innerHTML = newContent.innerHTML;
+                if (!newContent) { window.location.href = url; return; }
+                container.innerHTML = newContent.innerHTML;
 
-                // Update active button styles
                 filters.querySelectorAll('a[data-category]').forEach(function (btn) {
-                    var isActive = btn.getAttribute('data-category') === category;
-                    btn.style.background = isActive ? '#2563eb' : '#fff';
-                    btn.style.color = isActive ? '#fff' : '#374151';
-                    btn.style.borderColor = isActive ? '#2563eb' : '#e5e7eb';
+                    btn.classList.toggle('is-active', btn === link);
                 });
-
-                // Update browser history
                 window.history.pushState({}, '', url);
-            });
+            })
+            .catch(function () { window.location.href = url; });
         });
     }
 })();
