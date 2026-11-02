@@ -3,13 +3,14 @@
 @section('title', 'Services')
 
 @section('actions')
+    <a class="btn btn--outline" href="{{ route('admin.services.categories.index') }}">Manage categories</a>
     <a class="btn btn--primary" href="{{ route('admin.services.create') }}"><x-icon name="plus" :size="18" /> Add service</a>
 @endsection
 
 @section('content')
     <div class="tabs" data-service-filters>
         <a href="{{ route('admin.services.index') }}" data-category="" @class(['is-active' => ! $category])>All</a>
-        @foreach (config('site.service_categories') as $key => $cat)
+        @foreach (\App\Models\ServiceCategory::map() as $key => $cat)
             <a href="{{ route('admin.services.index', ['category' => $key]) }}" data-category="{{ $key }}" @class(['is-active' => $category === $key])>{{ $cat['name'] }}</a>
         @endforeach
     </div>

@@ -53,6 +53,8 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::post('logout', [Admin\AuthController::class, 'destroy'])->name('logout');
         Route::get('/', Admin\DashboardController::class)->name('dashboard');
 
+        Route::resource('services/categories', Admin\ServiceCategoryController::class)
+            ->names('services.categories')->parameters(['categories' => 'category'])->except('show');
         Route::resource('services', Admin\ServiceController::class)->except('show');
 
         // "leadership" does not singularise, so name the parameter to match the controller's Leader $leader.

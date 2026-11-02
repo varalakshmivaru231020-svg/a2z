@@ -78,7 +78,7 @@ class ServiceController extends Controller
     private function rules(?Service $service = null): array
     {
         return [
-            'category' => ['required', Rule::in(array_keys(config('site.service_categories')))],
+            'category' => ['required', Rule::in(array_keys(ServiceCategory::map()))],
             'title' => ['required', 'string', 'max:150'],
             'slug' => ['nullable', 'string', 'max:100', 'regex:/^[a-z0-9]+(?:-[a-z0-9]+)*$/', Rule::unique('services', 'slug')->ignore($service)],
             'summary' => ['required', 'string', 'max:300'],

@@ -34,7 +34,7 @@ class PageController extends Controller
             'seo' => $seo,
             'services' => $services,
             'featured' => $featured,
-            'categories' => config('site.service_categories'),
+            'categories' => \App\Models\ServiceCategory::map(),
             'gallery' => GalleryItem::active()->ordered()->limit(6)->get(),
         ]);
     }

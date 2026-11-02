@@ -15,7 +15,7 @@ class ServiceController extends Controller
 
         // /services?category=facility shows just that category. Anything unknown (or empty) falls back to "All".
         $category = (string) $request->query('category');
-        $active = array_key_exists($category, config('site.service_categories')) && $services->contains('category', $category)
+        $active = array_key_exists($category, ServiceCategory::map()) && $services->contains('category', $category)
             ? $category
             : null;
 
@@ -39,7 +39,7 @@ class ServiceController extends Controller
             'seo' => $seo,
             // toBase(): an Eloquent collection's except() filters by model key, which we don't want here.
             'grouped' => $services->groupBy('category')->toBase(),
-            'categories' => config('site.service_categories'),
+            'categories' => ServiceCategory::map(),
             'active' => $active,
             'total' => $services->count(),
         ]);

@@ -19,7 +19,7 @@
                         <x-admin.field class="full" name="title" label="Title" :value="$service->title" required maxlength="150" />
 
                         <x-admin.field name="category" label="Category" type="select" required>
-                            @foreach (config('site.service_categories') as $key => $cat)
+                            @foreach (\App\Models\ServiceCategory::map() as $key => $cat)
                                 <option value="{{ $key }}" @selected(old('category', $service->category) === $key)>{{ $cat['name'] }}</option>
                             @endforeach
                         </x-admin.field>

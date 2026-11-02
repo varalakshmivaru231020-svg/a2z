@@ -25,7 +25,7 @@
         <div>
             <h2 class="footer__title">Our services</h2>
             <ul class="footer__list">
-                @foreach (config('site.service_categories') as $key => $category)
+                @foreach (\App\Models\ServiceCategory::map() as $key => $category)
                     <li><a href="{{ route('services.index', ['category' => $key]) }}#browse">{{ $category['name'] }}</a></li>
                 @endforeach
             </ul>

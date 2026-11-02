@@ -52,7 +52,7 @@ class Service extends Model
 
     public function categoryName(): string
     {
-        return config("site.service_categories.{$this->category}.name", ucfirst($this->category));
+        return ServiceCategory::map()[$this->category]['name'] ?? ucfirst($this->category);
     }
 
     /** Long description split into paragraphs on blank lines. */
